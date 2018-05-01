@@ -33,6 +33,7 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'capybara'
 end
 
 group :development do
