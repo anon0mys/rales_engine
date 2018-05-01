@@ -8,5 +8,6 @@ describe Customer do
 
   describe 'requirements' do
     it { should have_many :invoices }
+    it { should have_many(:invoice_items).through(:invoices) }
   end
 end
