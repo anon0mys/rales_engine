@@ -15,41 +15,31 @@ namespace :db do
 
     desc 'import merchants'
     task :merchants => :environment do
-      CSV.foreach('data/merchants.csv', headers: true, header_converters: :symbol, converters: :numeric) do |row|
-        Merchant.create!(row.to_hash)
-      end
+      read_csv('data/merchants.csv', Merchant)
       puts "Seeded Merchants"
     end
 
     desc 'import customers'
     task :customers => :environment do
-      CSV.foreach('data/customers.csv', headers: true, header_converters: :symbol, converters: :numeric) do |row|
-        Customer.create!(row.to_hash)
-      end
+      read_csv('data/customers.csv', Customer)
       puts "Seeded Customers"
     end
 
     desc 'import items'
     task :items => :environment do
-      CSV.foreach('data/items.csv', headers: true, header_converters: :symbol, converters: :numeric) do |row|
-        Item.create!(row.to_hash)
-      end
+      read_csv('data/items.csv', Item)
       puts "Seeded Items"
     end
 
     desc 'import invoices'
     task :invoices => :environment do
-      CSV.foreach('data/invoices.csv', headers: true, header_converters: :symbol, converters: :numeric) do |row|
-        Invoice.create!(row.to_hash)
-      end
+      read_csv('data/invoices.csv', Invoice)
       puts "Seeded Invoices"
     end
 
     desc 'import invoice items'
     task :invoice_items => :environment  do
-      CSV.foreach('data/invoice_items.csv', headers: true, header_converters: :symbol, converters: :numeric) do |row|
-        InvoiceItem.create!(row.to_hash)
-      end
+      read_csv('data/invoice_items.csv', InvoiceItem)
       puts "Seeded Invoice Items"
     end
 
@@ -66,5 +56,10 @@ namespace :db do
       puts "Seeded Transactions"
     end
 
+    def read_csv(file_path, model)
+      CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric) do |row|
+        model.create!(row.to_hash)
+      end
+    end
   end
 end
