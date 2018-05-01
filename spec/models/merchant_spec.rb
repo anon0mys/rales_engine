@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 describe Merchant do
-  it { should validate_presence_of :name }
+  describe 'validations' do
+    it { should validate_presence_of :name }
+  end
+
+  describe 'relationships' do
+    it { should have_many :items }
+    it { should have_many :invoices }
+  end
 end
