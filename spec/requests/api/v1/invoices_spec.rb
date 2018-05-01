@@ -52,7 +52,7 @@ describe 'Invoice API' do
     expect(updated_invoice.status).to eq('Sold')
   end
 
-  it 'updates an invoice' do
+  it 'deletes an invoice' do
     invoice = create(:invoice)
 
     expect(Invoice.all.count).to eq(1)
