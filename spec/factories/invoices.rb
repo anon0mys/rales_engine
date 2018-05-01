@@ -1,7 +1,9 @@
 FactoryBot.define do
   factory :invoice do
-    customer nil
-    merchant nil
-    status "MyString"
+    customer
+    initialize_with { new(customer: customer) }
+    merchant
+    initialize_with { new(merchant: merchant) }
+    status "Pending"
   end
 end
