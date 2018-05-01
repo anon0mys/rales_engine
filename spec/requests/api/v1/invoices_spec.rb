@@ -27,9 +27,16 @@ describe 'Invoice API' do
   end
 
   it 'creates a single invoice' do
-    create_list(:customers, 2)
-    create_list(:merchants, 2)
+    customer = create(:customer)
+    merchant = create(:merchant)
+    invoice_params = { customer_id: customer.id, merchant_id: merchant.id,  status: "Pending"}
 
-    post "/api/v1/invoices/#{id}"
+    post "/api/v1/invoices/", params: { invoice: invoice_params }
+    created_invoice = Invoice.all.last
+
+    expect(response).to be_success
+    expect(created_invoice.customer_id).to eq(customer.id)
+    expect(created_invoice.merchant_id).to eq(merchant.id)
+    expect(created_invoice.status).to eq('Pending')
   end
 end
