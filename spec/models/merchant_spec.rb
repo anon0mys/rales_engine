@@ -11,7 +11,8 @@ describe Merchant do
   end
 
   describe 'class methods' do
-    it 'should return the total revenue for a date' do
+    before(:each) do
+      DatabaseCleaner.clean
       merchants = create_list(:merchant, 2)
       m1_invoices = create_list(:invoice, 3, created_at: '2018-03-03', merchant: merchants[0])
       m2_invoices = create_list(:invoice, 2, created_at: '2018-03-03', merchant: merchants[1])
@@ -19,9 +20,21 @@ describe Merchant do
       create_list(:invoice_item, 1, unit_price: 400, invoice: m1_invoices[1])
       create_list(:invoice_item, 2, unit_price: 500, invoice: m1_invoices[2])
       create_list(:invoice_item, 5, unit_price: 200, invoice: m2_invoices[0])
-      create_list(:invoice_item, 1, unit_price: 500, invoice: m2_invoices[1])
+      create_list(:invoice_item, 2, unit_price: 250, invoice: m2_invoices[1])
+    end
 
+    after(:each) do
+      DatabaseCleaner.clean
+      FactoryBot.reload
+    end
+
+    it 'should return #revenue_by_date for all merchants' do
       expect(Merchant.revenue_by_date('03-03-2018')).to eq(3500)
+    end
+
+    it 'should return a merchant ranking of #most_items sold' do
+      expected = {}
+      expect(Merchant.most_items(2)).to eq(expected)
     end
   end
 end
