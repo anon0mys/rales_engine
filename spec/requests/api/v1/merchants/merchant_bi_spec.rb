@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 describe 'Merchant Business Intelligence API' do
+  before(:each) do
+    DatabaseCleaner.clean
+    FactoryBot.reload
+  end
+
   it 'returns total revenue for date for all merchants' do
     merchants = create_list(:merchant, 2)
     m1_invoices = create_list(:invoice, 3, created_at: '2018-03-03', merchant: merchants[0])
@@ -35,6 +40,6 @@ describe 'Merchant Business Intelligence API' do
 
     expect(response).to be_successful
     expect(ranking.count).to eq(2)
-    expect(ranking.keys.first.name).to eq(merchants[0].name)
+    expect(ranking.first['name']).to eq(merchants[1].name)
   end
 end

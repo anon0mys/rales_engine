@@ -10,9 +10,9 @@ class Merchant < ApplicationRecord
   end
 
   def self.most_items(quantity)
-    joins(:invoices => :invoice_items)
-      .group('merchant_id')
-      .count('invoice_items.quantity')
+    select('merchants.*, sum(invoice_items.quantity) AS item_count')
+      .joins(invoices: :invoice_items)
+      .group(:id)
       .order('item_count DESC')
       .limit(quantity)
   end
