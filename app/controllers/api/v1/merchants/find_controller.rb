@@ -1,8 +1,7 @@
 class Api::V1::Merchants::FindController < ApplicationController
   before_action :search_params, only: [:index]
 
-  def index
-    binding.pry
+  def show
     render json: Merchant.find_by(search_params)
   end
 
