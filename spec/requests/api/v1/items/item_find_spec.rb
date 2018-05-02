@@ -44,6 +44,19 @@ describe 'Item Search API' do
       expect(item['id']).to eq(test_item.id)
     end
 
+    it 'can find a single item by description' do
+      create_list(:item, 4)
+      test_item = create(:item, unit_price: 10)
+
+      get '/api/v1/items/find?unit_price=10'
+
+      expect(response).to be_successful
+
+      item = JSON.parse(response.body)
+
+      expect(item['id']).to eq(test_item.id)
+    end
+
     it 'can find a single item by merchant_id' do
       test_items = create_list(:item, 4)
 

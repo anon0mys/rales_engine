@@ -30,6 +30,18 @@ describe 'Item API Find Controller - All' do
       expect(items.count).to eq(test_items.count)
     end
 
+    it 'can find items by unit price' do
+      test_items = create_list(:item, 3, unit_price: 10)
+
+      get '/api/v1/items/find_all?unit_price=10'
+
+      expect(response).to be_successful
+
+      items = JSON.parse(response.body)
+
+      expect(items.count).to eq(test_items.count)
+    end
+
     it 'can find by merchant id' do
       merchant = create(:merchant)
       test_items = create_list(:item, 3, merchant_id: merchant.id)
