@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :invoice do
-    customer
-    initialize_with { new(customer: customer) }
+    association :customer
     association :merchant
     status "Pending"
   end
