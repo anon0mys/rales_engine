@@ -12,6 +12,11 @@ Rails.application.routes.draw do
         get '/find_all', to: 'find#index'
       end
 
+      namespace :items do
+        get '/find', to: 'find#show'
+        get '/find_all', to: 'find#index'
+      end
+
       resources :invoices, except: %i[new edit]
       resources :items, except: %i[new edit]
       resources :merchants, except: %i[new edit] do
