@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :merchants do
         get '/find', to: 'find#show'
+        get '/find_all', to: 'find#index'
       end
       resources :invoices, except: [:new, :edit]
       resources :merchants, except: %i[new edit] do

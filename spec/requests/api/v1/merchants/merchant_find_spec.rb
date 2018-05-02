@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Merchant Search API' do
+describe 'Merchant Find API' do
   before(:each) do
     FactoryBot.reload
   end
