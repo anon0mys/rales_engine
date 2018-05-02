@@ -16,7 +16,7 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def destroy
-    Item.delete(params[:id])
+    Invoice.delete(params[:id])
   end
 
   private
