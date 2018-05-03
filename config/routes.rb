@@ -24,6 +24,8 @@ Rails.application.routes.draw do
         get '/find_all', to: 'find#index'
       end
 
+      resources :transactions, exept: %i[new edit]
+
       resources :invoices, except: %i[new edit] do
         get '/transactions', to: 'invoices/transactions#index'
         get '/invoice_items', to: 'invoices/invoice_items#index'
