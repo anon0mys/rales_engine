@@ -38,7 +38,7 @@ describe Merchant do
     end
   end
 
-  describe 'class methods' do
+  describe 'instance methods' do
     before(:each) do
       DatabaseCleaner.clean
       @merchant = create(:merchant)
