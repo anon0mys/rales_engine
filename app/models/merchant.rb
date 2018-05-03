@@ -2,6 +2,7 @@ class Merchant < ApplicationRecord
   validates_presence_of :name
   has_many :items
   has_many :invoices
+  has_many :invoice_items, through: :invoices
 
   default_scope { order(:id) }
 
@@ -18,5 +19,12 @@ class Merchant < ApplicationRecord
       .group(:id)
       .order('item_count DESC')
       .limit(quantity)
+  end
+
+  def revenue(filter = {})
+    invoices.joins(:invoice_items, :transactions)
+      .where(filter)
+      .merge(Transaction.unscoped.successful)
+      .sum('invoice_items.quantity * invoice_items.unit_price')
   end
 end

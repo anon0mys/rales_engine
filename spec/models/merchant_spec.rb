@@ -8,6 +8,7 @@ describe Merchant do
   describe 'relationships' do
     it { should have_many :items }
     it { should have_many :invoices }
+    it { should have_many :invoice_items }
   end
 
   describe 'class methods' do
@@ -34,6 +35,36 @@ describe Merchant do
 
     it 'should return a merchant ranking of #most_items sold' do
       expect(Merchant.most_items(2).first).to eq(@merchants.last)
+    end
+  end
+
+  describe 'class methods' do
+    before(:each) do
+      DatabaseCleaner.clean
+      @merchant = create(:merchant)
+      invoices = create_list(:invoice, 3, created_at: '2018-03-03', merchant: @merchant)
+      other_invoice = create(:invoice, created_at: '2018-04-03', merchant: @merchant)
+      create_list(:invoice_item, 3, unit_price: 200, invoice: invoices[0])
+      create_list(:invoice_item, 1, unit_price: 400, invoice: invoices[1])
+      create_list(:invoice_item, 2, unit_price: 400, invoice: invoices[2])
+      create_list(:invoice_item, 2, unit_price: 500, invoice: other_invoice)
+      create(:transaction, invoice: invoices[0])
+      create(:transaction, invoice: invoices[1])
+      create(:transaction, invoice: invoices[2], result: 'failed')
+      create(:transaction, invoice: other_invoice)
+    end
+
+    after(:each) do
+      DatabaseCleaner.clean
+      FactoryBot.reload
+    end
+
+    it 'should return #revenue by date for a merchant' do
+      expect(@merchant.revenue).to eq(2000)
+    end
+
+    it 'should return #revenue for a single merchant' do
+      expect(@merchant.revenue({'created_at' =>'03-03-2018' })).to eq(1000)
     end
   end
 end
