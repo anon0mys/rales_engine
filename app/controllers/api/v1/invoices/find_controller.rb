@@ -1,6 +1,4 @@
 class Api::V1::Invoices::FindController < ApplicationController
-  before_action :search_params, only: [:show, :index]
-
   def show
     render json: Invoice.find_by(search_params)
   end
@@ -12,6 +10,12 @@ class Api::V1::Invoices::FindController < ApplicationController
   private
 
   def search_params
-    { params.keys.first.to_sym => params.values.first }
+    # { params.keys.first.to_sym => params.values.first }
+    params.permit(:id,
+                  :customer_id,
+                  :merchant_id,
+                  :status,
+                  :created_at,
+                  :updated_at)
   end
 end
