@@ -10,10 +10,10 @@ class Merchant < ApplicationRecord
 
   def self.most_items(quantity)
     unscoped
-      .select('merchants.*, sum(invoice_items.quantity) AS item_count')
-      .joins(invoices: :invoice_items)
+      .joins(invoices: [:invoice_items, :transactions])
+      .where(transactions: { result: 'success' })
+      .order('sum(invoice_items.quantity) DESC')
       .group(:id)
-      .order('item_count DESC')
       .limit(quantity)
   end
 
@@ -25,7 +25,7 @@ class Merchant < ApplicationRecord
     .order('revenue DESC')
     .limit(quantity)
   end
-  
+
   def self.revenue_by_date(filter)
     joins(invoices: [:invoice_items, :transactions])
     .where(filter)
