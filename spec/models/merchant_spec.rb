@@ -36,6 +36,11 @@ describe Merchant do
     it 'should return a merchant ranking of #most_items sold' do
       expect(Merchant.most_items(2).first).to eq(@merchants.last)
     end
+
+    it 'should return merchants by revenue' do
+      merchant = Merchant.most_revenue(1)
+      expect(merchant[0].id).to eq(@merchants.first.id)
+    end
   end
 
   describe 'instance methods' do

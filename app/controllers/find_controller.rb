@@ -1,6 +1,6 @@
 class FindController < ApplicationController
-  def unformat_price(price)
-    price.gsub('.', '').to_i
+  def unformat_price(unit_price)
+    unit_price.delete('.').to_i
   end
 
   def search_params

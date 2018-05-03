@@ -1,3 +1,4 @@
+
 class Merchant < ApplicationRecord
   validates_presence_of :name
   has_many :items
@@ -18,6 +19,15 @@ class Merchant < ApplicationRecord
       .joins(invoices: :invoice_items)
       .group(:id)
       .order('item_count DESC')
+      .limit(quantity)
+  end
+
+  def self.most_revenue(quantity)
+    unscoped
+      .select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue')
+      .joins(:invoice_items)
+      .group(:id)
+      .order('revenue DESC')
       .limit(quantity)
   end
 
