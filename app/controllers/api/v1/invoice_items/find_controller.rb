@@ -5,6 +5,10 @@ class Api::V1::InvoiceItems::FindController < ApplicationController
     render json: InvoiceItem.find_by(search_params)
   end
 
+  def index
+    render json: InvoiceItem.where(search_params)
+  end
+
   private
 
   def search_params
