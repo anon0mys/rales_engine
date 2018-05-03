@@ -22,6 +22,11 @@ describe Merchant do
       create_list(:invoice_item, 2, unit_price: 500, quantity: 1, invoice: m1_invoices[2])
       create_list(:invoice_item, 5, unit_price: 200, quantity: 1, invoice: m2_invoices[0])
       create_list(:invoice_item, 2, unit_price: 250, quantity: 1, invoice: m2_invoices[1])
+      create(:transaction, invoice: m1_invoices[0])
+      create(:transaction, invoice: m1_invoices[1])
+      create(:transaction, invoice: m1_invoices[2])
+      create(:transaction, invoice: m2_invoices[0])
+      create(:transaction, invoice: m2_invoices[1])
     end
 
     after(:each) do
@@ -30,7 +35,8 @@ describe Merchant do
     end
 
     it 'should return #revenue_by_date for all merchants' do
-      expect(Merchant.revenue_by_date('03-03-2018')).to eq(3500)
+      date = DateTime.parse('03-03-2018')
+      expect(Merchant.revenue_by_date({ invoices: { created_at: date.beginning_of_day..date.end_of_day }})).to eq(3500)
     end
 
     it 'should return a merchant ranking of #most_items sold' do

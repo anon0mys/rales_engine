@@ -15,11 +15,16 @@ describe 'Merchant Business Intelligence API' do
     create_list(:invoice_item, 2, unit_price: 500, quantity: 1, invoice: m1_invoices[2])
     create_list(:invoice_item, 5, unit_price: 200, quantity: 1, invoice: m2_invoices[0])
     create_list(:invoice_item, 1, unit_price: 500, quantity: 1, invoice: m2_invoices[1])
+    create(:transaction, invoice: m1_invoices[0])
+    create(:transaction, invoice: m1_invoices[1])
+    create(:transaction, invoice: m1_invoices[2])
+    create(:transaction, invoice: m2_invoices[0])
+    create(:transaction, invoice: m2_invoices[1])
 
     get '/api/v1/merchants/revenue?date=03-03-2018'
 
     revenue = JSON.parse(response.body)
-    expected = { 'revenue' => 3500 }
+    expected = { 'total_revenue' => '35.0' }
 
     expect(response).to be_successful
     expect(revenue).to eq(expected)
@@ -64,7 +69,7 @@ describe 'Merchant Business Intelligence API' do
       get "/api/v1/merchants/#{@merchant.id}/revenue"
 
       revenue = JSON.parse(response.body)
-      expected = { 'revenue' => 2000 }
+      expected = { 'revenue' => '20.0' }
 
       expect(response).to be_successful
       expect(revenue).to eq(expected)
@@ -74,7 +79,7 @@ describe 'Merchant Business Intelligence API' do
       get "/api/v1/merchants/#{@merchant.id}/revenue?date=03-03-2018"
 
       revenue = JSON.parse(response.body)
-      expected = { 'revenue' => 1000 }
+      expected = { 'revenue' => '10.0' }
 
       expect(response).to be_successful
       expect(revenue).to eq(expected)
