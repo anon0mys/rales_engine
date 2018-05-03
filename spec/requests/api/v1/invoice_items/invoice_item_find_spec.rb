@@ -65,7 +65,8 @@ describe 'Invoice Search API' do
 
       invoice_item = JSON.parse(response.body)
 
-      expect(invoice_item['unit_price']).to eq(test_invoice_items.last.unit_price)
+      expect(invoice_item['unit_price']).to eq("0.88")
+      expect(invoice_item['id']).to eq(test_invoice_items.last.id)
     end
 
     it 'can find invoice items by created_at' do
