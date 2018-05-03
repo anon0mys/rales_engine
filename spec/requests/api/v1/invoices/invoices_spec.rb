@@ -60,6 +60,6 @@ describe 'Invoice API' do
     delete "/api/v1/invoices/#{invoice.id}"
 
     expect(response).to be_success
-    expect(Item.count).to eq(0)
+    expect(Invoice.count).to eq(0)
   end
 end
