@@ -19,9 +19,10 @@ describe 'Merchant Business Intelligence API' do
     get '/api/v1/merchants/revenue?date=03-03-2018'
 
     revenue = JSON.parse(response.body)
+    expected = { 'revenue' => 3500 }
 
     expect(response).to be_successful
-    expect(revenue).to eq(3500)
+    expect(revenue).to eq(expected)
   end
 
   it 'returns count of items sold for merchants' do
@@ -63,18 +64,20 @@ describe 'Merchant Business Intelligence API' do
       get "/api/v1/merchants/#{@merchant.id}/revenue"
 
       revenue = JSON.parse(response.body)
+      expected = { 'revenue' => 2000 }
 
       expect(response).to be_successful
-      expect(revenue).to eq(2000)
+      expect(revenue).to eq(expected)
     end
 
     it 'returns revenue for a single merchant by date' do
       get "/api/v1/merchants/#{@merchant.id}/revenue?date=03-03-2018"
 
       revenue = JSON.parse(response.body)
+      expected = { 'revenue' => 1000 }
 
       expect(response).to be_successful
-      expect(revenue).to eq(1000)
+      expect(revenue).to eq(expected)
     end
   end
 end
