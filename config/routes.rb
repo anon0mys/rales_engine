@@ -31,6 +31,11 @@ Rails.application.routes.draw do
         get '/find_all', to: 'find#index'
       end
 
+      namespace :customers do
+        get '/find', to: 'find#show'
+        get '/find_all', to: 'find#index'
+      end
+
       resources :transactions, exept: %i[new edit] do
         get '/invoice', to: 'transactions/invoices#show'
       end
