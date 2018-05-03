@@ -3,6 +3,8 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices
 
+  default_scope { order(:id) }
+
   def self.revenue_by_date(date)
     joins(invoices: :invoice_items)
       .where('invoices.created_at = ?', date)
@@ -10,7 +12,8 @@ class Merchant < ApplicationRecord
   end
 
   def self.most_items(quantity)
-    select('merchants.*, sum(invoice_items.quantity) AS item_count')
+    unscoped
+      .select('merchants.*, sum(invoice_items.quantity) AS item_count')
       .joins(invoices: :invoice_items)
       .group(:id)
       .order('item_count DESC')
