@@ -39,6 +39,10 @@ describe 'Merchant Business Intelligence API' do
     create_list(:invoice_item, 2, unit_price: 500, quantity: 1, invoice: m1_invoices[2])
     create_list(:invoice_item, 5, unit_price: 200, quantity: 1, invoice: m2_invoices[0])
     create_list(:invoice_item, 2, unit_price: 500, quantity: 1, invoice: m2_invoices[1])
+    create(:transaction, result: 'success', invoice: m1_invoices[0])
+    create(:transaction, result: 'success', invoice: m1_invoices[1])
+    create(:transaction, result: 'success', invoice: m2_invoices[0])
+    create(:transaction, result: 'success', invoice: m2_invoices[1])
 
     get '/api/v1/merchants/most_items?quantity=2'
 
