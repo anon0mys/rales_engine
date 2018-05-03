@@ -1,7 +1,6 @@
-class ItemSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :merchant_id, :unit_price
+require './lib/formatters/price_formatter'
 
-  def unit_price
-    (object.unit_price.to_f / 100).to_s
-  end
+class ItemSerializer < ActiveModel::Serializer
+  include PriceFormatter
+  attributes :id, :name, :description, :merchant_id, :unit_price
 end
