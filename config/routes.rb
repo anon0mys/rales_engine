@@ -35,6 +35,11 @@ Rails.application.routes.draw do
         get '/invoice', to: 'transactions/invoices#show'
       end
 
+      resources :customers, except: %i[new edit] do
+        get '/transactions', to: 'customers/transactions#index'
+        get '/invoices', to: 'customers/invoices#index'
+      end
+
       resources :invoices, except: %i[new edit] do
         get '/transactions', to: 'invoices/transactions#index'
         get '/invoice_items', to: 'invoices/invoice_items#index'
