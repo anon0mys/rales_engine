@@ -26,7 +26,10 @@ Rails.application.routes.draw do
 
       resources :invoices, except: %i[new edit]
 
-      resources :items, except: %i[new edit]
+      resources :items, except: %i[new edit] do
+        get '/invoices', to: 'items/invoices#index'
+        get '/merchant', to: 'items/merchants#show'
+      end
 
       resources :invoice_items, except: %i[new edit] do
         get '/item', to: 'invoice_items/items#show'
