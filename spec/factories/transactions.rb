@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :transaction do
-    invoice nil
+    association :invoice
     credit_card_number 5555555555555555
-    result "MyString"
+    result 'success'
   end
 end

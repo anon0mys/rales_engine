@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       namespace :merchants do
         get '/find', to: 'find#show'
         get '/find_all', to: 'find#index'
+        get '/revenue', to: 'revenue#index'
+        get '/most_items', to: 'most_items#index'
       end
 
       namespace :invoices do
@@ -34,6 +36,7 @@ Rails.application.routes.draw do
       resources :merchants, except: %i[new edit] do
         get '/items', to: 'merchants/items#index'
         get '/invoices', to: 'merchants/invoices#index'
+        get '/revenue', to: 'merchants/revenue#show'
       end
     end
   end
