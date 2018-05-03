@@ -3,6 +3,7 @@ class Merchant < ApplicationRecord
   validates_presence_of :name
   has_many :items
   has_many :invoices
+  has_many :customers, through: :invoices
   has_many :invoice_items, through: :invoices
 
   default_scope { order(:id) }
@@ -37,5 +38,15 @@ class Merchant < ApplicationRecord
       .where(filter)
       .merge(Transaction.unscoped.successful)
       .sum('invoice_items.quantity * invoice_items.unit_price')
+  end
+
+  def favorite_customer
+    customers
+      .joins(:transactions)
+      .where(transactions: { result: 'Success' })
+      .group(:id)
+      .order('count(transactions.id) DESC')
+      .limit(1)
+      .first
   end
 end

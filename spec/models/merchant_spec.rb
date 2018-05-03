@@ -53,7 +53,8 @@ describe Merchant do
     before(:each) do
       DatabaseCleaner.clean
       @merchant = create(:merchant)
-      invoices = create_list(:invoice, 3, created_at: '2018-03-03', merchant: @merchant)
+      @customer = create(:customer)
+      invoices = create_list(:invoice, 3, created_at: '2018-03-03', merchant: @merchant, customer: @customer)
       other_invoice = create(:invoice, created_at: '2018-04-03', merchant: @merchant)
       create_list(:invoice_item, 3, unit_price: 200, quantity: 1, invoice: invoices[0])
       create_list(:invoice_item, 1, unit_price: 400, quantity: 1, invoice: invoices[1])
@@ -76,6 +77,11 @@ describe Merchant do
 
     it 'should return #revenue for a single merchant' do
       expect(@merchant.revenue({'created_at' =>'03-03-2018' })).to eq(1000)
+    end
+
+    it 'should return the merchants favorite customer' do
+      customer = @merchant.favorite_customer
+      expect(customer['id']).to eq(@customer.id)
     end
   end
 end
