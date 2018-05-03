@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         get '/find', to: 'find#show'
         get '/find_all', to: 'find#index'
         get '/most_revenue', to: 'most_revenue#index'
+        get '/most_items', to: 'most_items#index'
       end
 
       namespace :invoice_items do
@@ -57,6 +58,7 @@ Rails.application.routes.draw do
         get '/invoices', to: 'items/invoices#index'
         get '/invoice_items', to: 'items/invoice_items#index'
         get '/merchant', to: 'items/merchants#show'
+        get '/best_day', to: 'items/best_day#show'
       end
 
       resources :invoice_items, except: %i[new edit] do
