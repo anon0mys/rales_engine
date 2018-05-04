@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       resources :customers, except: %i[new edit] do
         get '/transactions', to: 'customers/transactions#index'
         get '/invoices', to: 'customers/invoices#index'
+        get '/favorite_merchant', to: 'customers/favorite_merchant#show'
       end
 
       resources :invoice_items, except: %i[new edit] do
@@ -73,6 +74,7 @@ Rails.application.routes.draw do
         get '/invoices', to: 'merchants/invoices#index'
         get '/revenue', to: 'merchants/revenue#show'
         get '/favorite_customer', to: 'merchants/favorite_customers#show'
+        get '/customers_with_pending_invoices', to: 'merchants/pending_invoices#index'
       end
 
       resources :transactions, exept: %i[new edit] do
