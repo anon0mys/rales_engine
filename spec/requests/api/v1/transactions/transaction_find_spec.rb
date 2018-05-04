@@ -28,7 +28,7 @@ describe 'Transaction Search API' do
 
       transaction = JSON.parse(response.body)
 
-      expect(transaction['credit_card_number']).to eq(test_transaction.credit_card_number)
+      expect(transaction['credit_card_number']).to eq(test_transaction.credit_card_number.to_s)
     end
 
     it 'can find a single transaction by credit_card_number' do
@@ -41,7 +41,7 @@ describe 'Transaction Search API' do
 
       transaction = JSON.parse(response.body)
 
-      expect(transaction['credit_card_number']).to eq(test_transaction.credit_card_number)
+      expect(transaction['credit_card_number']).to eq(test_transaction.credit_card_number.to_s)
     end
 
     it 'can find a single transaction by invoice_id' do
