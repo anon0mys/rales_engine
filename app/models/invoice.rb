@@ -9,5 +9,5 @@ class Invoice < ApplicationRecord
   has_many :transactions
 
   scope :successful, -> { where(transactions: { result: 'success' }) }
-  scope :unpaid, -> { where.not(id: Transaction.successful) }
+  scope :unpaid, -> { where.not(id: Transaction.select('transactions.invoice_id').where("transactions.result = 'success'") ) }
 end

@@ -51,6 +51,7 @@ class Merchant < ApplicationRecord
   end
 
   def customers_with_pending_invoices
+    # binding.pry
     customers.merge(Invoice.unpaid)
   end
 end
