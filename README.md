@@ -1,7 +1,7 @@
 ### README
 
 # Rales Engine
----
+
 This project was designed to push our boundaries building out an API to serve Etsy style JSON data from a business analytics type application. It was built using a spec harness with some additional functionality thought to be practical.
 
 For Information on the SPEC HARNESS, please visit:<br>
