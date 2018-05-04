@@ -1,8 +1,8 @@
 ### README
 
 # Rales Engine
----
-This project was designed to push our boundaries building out an API to serve Etsy style JSON data from a business analytics type application. It was built using a spec harness and additional functionality thought to be practical.
+
+This project was designed to push our boundaries building out an API to serve Etsy style JSON data from a business analytics type application. It was built using a spec harness with some additional functionality thought to be practical.
 
 For Information on the SPEC HARNESS, please visit:<br>
 [Turing School Rales Engine Spec Harness](https://github.com/turingschool/rales_engine_spec_harness)
@@ -110,7 +110,7 @@ rspec spec/requests/api/v1/invoices/invoices_spec.rb
 
 #### To Visit Specific Endpoints:
 - For a breakdown of how the endpoints are structured, please visit this documentation here:<br>
-[Endpoint Explanation](#)
+[Endpoint Explanation](https://github.com/anon0mys/rales_engine/blob/master/endpoint.md)
 
 - Next spin up your server:
 ```
@@ -118,8 +118,7 @@ rails s
 ```
 <br>
 
-##### Visit any of the endpoints in the endpoint documentation:
-[Endpoint Explanation](#)<br>
+##### Visit any of the endpoints in the endpoint documentation: [Endpoint Explanation](https://github.com/anon0mys/rales_engine/blob/master/endpoint.md)<br>
 An example would be:
 - Model:
 ```
