@@ -55,16 +55,23 @@ describe Merchant do
       DatabaseCleaner.clean
       @merchant = create(:merchant)
       @customer = create(:customer)
-      invoices = create_list(:invoice, 3, created_at: '2018-03-03', merchant: @merchant, customer: @customer)
-      other_invoice = create(:invoice, created_at: '2018-04-03', merchant: @merchant)
-      create_list(:invoice_item, 3, unit_price: 200, quantity: 1, invoice: invoices[0])
-      create_list(:invoice_item, 1, unit_price: 400, quantity: 1, invoice: invoices[1])
-      create_list(:invoice_item, 2, unit_price: 400, quantity: 1, invoice: invoices[2])
-      create_list(:invoice_item, 2, unit_price: 500, quantity: 1, invoice: other_invoice)
-      create(:transaction, invoice: invoices[0])
-      create(:transaction, invoice: invoices[1])
-      create(:transaction, invoice: invoices[2], result: 'failed')
-      create(:transaction, invoice: other_invoice)
+      @customer_2 = create(:customer)
+      @customer_3 = create(:customer)
+      invoice_1 = create(:invoice, created_at: '2018-03-03', merchant: @merchant, customer: @customer)
+      invoice_2 = create(:invoice, created_at: '2018-03-03', merchant: @merchant, customer: @customer)
+      invoice_3 = create(:invoice, created_at: '2018-03-03', merchant: @merchant, customer: @customer_2)
+      invoice_4 = create(:invoice, created_at: '2018-04-03', merchant: @merchant, customer: @customer_2)
+      invoice_5 = create(:invoice, created_at: '2018-04-03', merchant: @merchant, customer: @customer_3)
+      create_list(:invoice_item, 3, unit_price: 200, quantity: 1, invoice: invoice_1)
+      create_list(:invoice_item, 1, unit_price: 400, quantity: 1, invoice: invoice_2)
+      create_list(:invoice_item, 2, unit_price: 400, quantity: 1, invoice: invoice_3)
+      create_list(:invoice_item, 2, unit_price: 500, quantity: 1, invoice: invoice_4)
+      create_list(:invoice_item, 2, unit_price: 500, quantity: 1, invoice: invoice_5)
+      create(:transaction, invoice: invoice_1)
+      create(:transaction, invoice: invoice_2)
+      create(:transaction, invoice: invoice_3, result: 'failed')
+      create(:transaction, invoice: invoice_4)
+      create(:transaction, invoice: invoice_5, result: 'failed')
     end
 
     after(:each) do
@@ -83,6 +90,14 @@ describe Merchant do
     it 'should return the merchants favorite customer' do
       customer = @merchant.favorite_customer
       expect(customer['id']).to eq(@customer.id)
+    end
+
+    it 'should return the customers with pending invoices for a merchant' do
+      customers = @merchant.customers_with_pending_invoices
+
+      expect(customers.length).to eq(2)
+      expect(customers.first['id']).to eq(@customer_2.id)
+      expect(customers.last['id']).to eq(@customer_3.id)
     end
   end
 end

@@ -19,18 +19,18 @@ class Merchant < ApplicationRecord
 
   def self.most_revenue(quantity)
     unscoped
-    .select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue')
-    .joins(:invoice_items)
-    .group(:id)
-    .order('revenue DESC')
-    .limit(quantity)
+      .select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue')
+      .joins(:invoice_items)
+      .group(:id)
+      .order('revenue DESC')
+      .limit(quantity)
   end
 
   def self.revenue_by_date(filter)
     joins(invoices: [:invoice_items, :transactions])
-    .where(filter)
-    .merge(Transaction.unscoped.successful)
-    .sum('quantity * unit_price')
+      .where(filter)
+      .merge(Transaction.unscoped.successful)
+      .sum('quantity * unit_price')
   end
 
   def revenue(filter = {})
@@ -48,5 +48,9 @@ class Merchant < ApplicationRecord
       .order('count(transactions.id) DESC')
       .limit(1)
       .first
+  end
+
+  def customers_with_pending_invoices
+    customers.merge(Invoice.unpaid)
   end
 end

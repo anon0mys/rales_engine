@@ -8,4 +8,6 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
   has_many :transactions
 
+  scope :successful, -> { where(transactions: { result: 'success' }) }
+  scope :unpaid, -> { where.not(id: Transaction.successful) }
 end
