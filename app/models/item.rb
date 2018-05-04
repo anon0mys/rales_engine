@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   validates_presence_of :name, :description, :unit_price, :merchant_id
+
   belongs_to :merchant
 
   has_many :invoice_items
@@ -11,7 +12,7 @@ class Item < ApplicationRecord
     unscoped
       .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue')
       .joins(:invoice_items, invoices: :transactions)
-      .where(transactions: {result: 'success'})
+      .where(transactions: { result: 'success' })
       .group(:id)
       .order('revenue DESC')
       .limit(quantity);
@@ -21,7 +22,7 @@ class Item < ApplicationRecord
     unscoped
       .select('items.*, sum(invoice_items.quantity) AS item_count')
       .joins(:invoice_items, invoices: :transactions)
-      .where(transactions: {result: 'success'})
+      .where(transactions: { result: 'success' })
       .group(:id)
       .order('item_count DESC')
       .limit(quantity);
@@ -30,7 +31,7 @@ class Item < ApplicationRecord
   def best_day
     invoices.select('invoices.created_at AS date, sum(invoice_items.quantity * invoice_items.unit_price) AS sales')
             .joins(:invoice_items, :transactions)
-            .where(transactions: {result: 'success'})
+            .where(transactions: { result: 'success' })
             .group('date')
             .unscope(:order)
             .order('sales DESC, date ASC')
