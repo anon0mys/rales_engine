@@ -95,5 +95,5 @@ These endpoints give access to information on business analytics. Anytime you se
 /api/v1/merchants/:id/revenue
 /api/v1/merchants/:id/revenue?date=x
 /api/v1/merchants/:id/favorite_customer
-/api/v1/merchants/:id/customers_with_pending_invoices
+/api/v1/merchants/17/customers_with_pending_invoices
 ```

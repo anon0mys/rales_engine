@@ -2,6 +2,9 @@
 
 # Rales Engine
 
+### See The Active Site:
+[Heroku Rales Engine](https://enigmatic-badlands-29046.herokuapp.com)
+
 This project was designed to push our boundaries building out an API to serve Etsy style JSON data from a business analytics type application. It was built using a spec harness with some additional functionality thought to be practical.
 
 For Information on the SPEC HARNESS, please visit:<br>
@@ -72,6 +75,18 @@ An understanding of how the database is setup is crucial to understand the relat
 - FactoryBot
 - Rspec
 - ShouldaMatchers
+
+#### Test Documentation and Tweaks
+
+- For additional documentation and the individual tests as the suite runs:
+```
+--format=documentation
+```
+- Additional Useful Flags:
+```
+--order=random
+--color
+```
 
 ##### About The Tests:
  The test suite includes test for the following:
