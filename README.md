@@ -3,7 +3,12 @@
 # Rales Engine
 
 ### See The Active Site:
-[Heroku Rales Engine](https://enigmatic-badlands-29046.herokuapp.com)
+[Heroku Rales Engine Customers](https://enigmatic-badlands-29046.herokuapp.com/api/v1/customers)
+[Heroku Rales Engine Invoice Items](https://enigmatic-badlands-29046.herokuapp.com/api/v1/invoice_items)
+[Heroku Rales Engine Invoices](https://enigmatic-badlands-29046.herokuapp.com/api/v1/invoices)
+[Heroku Rales Engine Items](https://enigmatic-badlands-29046.herokuapp.com/api/v1/items)
+[Heroku Rales Engine Merchants](https://enigmatic-badlands-29046.herokuapp.com/api/v1/merchants)
+[Heroku Rales Engine Transactions](https://enigmatic-badlands-29046.herokuapp.com/api/v1/transactions)
 
 This project was designed to push our boundaries building out an API to serve Etsy style JSON data from a business analytics type application. It was built using a spec harness with some additional functionality thought to be practical.
 
